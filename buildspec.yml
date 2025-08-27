@@ -7,8 +7,8 @@ phases:
     commands:
       - echo "Installing global dependencies..."
       - npm install -g serverless
-      - echo "Logging in to Serverless Framework..."
-      - serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY --profile serverless_profile
+      - echo "Configuring Serverless authentication..."
+      - serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY --profile serverless_profile --token $SERVERLESS_JONH_SECRET
   build:
     commands:
       - echo "Installing project dependencies..."
