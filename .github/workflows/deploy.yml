@@ -28,4 +28,4 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}    # Configure seus secrets no GitHub
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Configure seus secrets no GitHub
-        AWS_DEFAULT_REGION: us-east-1  # Altere para sua região da AWS, caso necessário
+        AWS_DEFAULT_REGION: us-east-1  
