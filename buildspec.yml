@@ -5,14 +5,14 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo "Installing global dependencies..."
-      - npm install -g serverless
+      - echo "Installing Serverless Framework v3..."
+      - npm install -g serverless@3
       - echo "Installing project dependencies..."
       - npm install
 
   pre_build:
     commands:
-      - echo "Verifying Node and npm versions..."
+      - echo "Checking Node and npm versions..."
       - node -v
       - npm -v
 
