@@ -3,24 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 18.x
     commands:
-      - echo "Installing Serverless Framework v3..."
-      - npm install -g serverless@3
-      - echo "Installing project dependencies..."
-      - npm install
-
-  pre_build:
-    commands:
-      - echo "Checking Node and npm versions..."
-      - node -v
-      - npm -v
-
+      - echo "Installing global dependencies..."
+      - npm install -g serverless
+      - echo "Logging in to Serverless Framework..."
+      - serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY --profile serverless_profile
   build:
     commands:
-      - echo "Packaging Lambda function with Serverless..."
-      - npx serverless package
-
-artifacts:
-  files:
-    - '.serverless/**'
+      - echo "Installing project dependencies..."
+      - npm install
+      - echo "Deploying Lambda function..."
+      - serverless deploy
