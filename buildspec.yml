@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing global dependencies..."
+      - npm install -g serverless
+      - echo "Installing project dependencies..."
+      - npm install
+
+  pre_build:
+    commands:
+      - echo "Verifying Node and npm versions..."
+      - node -v
+      - npm -v
+
+  build:
+    commands:
+      - echo "Packaging Lambda function with Serverless..."
+      - npx serverless package
+
+artifacts:
+  files:
+    - '.serverless/**'
