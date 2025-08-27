@@ -1,0 +1,22 @@
+service: chloe-prequal-ghl
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: sa-east-1
+  environment:
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+    GHL_API_KEY: ${env:GHL_API_KEY}
+    GHL_WEBHOOK_SECRET: ${env:GHL_WEBHOOK_SECRET}
+    GHL_LOCATION_ID: ${env:GHL_LOCATION_ID}
+
+functions:
+  inbound:
+    handler: src/functions/chloePreQualInbound.handler
+    events:
+      - httpApi:
+          path: /ghl/webhook
+          method: post
+
+plugins:
+  - serverless-webpack

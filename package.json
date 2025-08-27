@@ -8,5 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "serverless": "^4.18.2",
+    "webpack": "^5.101.3",
+    "webpack-node-externals": "^3.0.0"
+  }
 }
