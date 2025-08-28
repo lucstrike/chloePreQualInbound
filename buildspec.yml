@@ -6,7 +6,19 @@ phases:
     commands:
       - echo "Installing dependencies"
       - npm install
+  pre_build:
+    commands:
+      - echo "Verifying Node.js version"
+      - node -v
+      - echo "Verifying npm version"
+      - npm -v
   build:
     commands:
-      - echo "Building and deploying Lambda function"
-      - npx serverless deploy --stage dev --region us-east-1
+      - echo "Building the Lambda function"
+      - npm run build --if-present
+  post_build:
+    commands:
+      - echo "Build complete"
+artifacts:
+  files:
+    - '**/*'
