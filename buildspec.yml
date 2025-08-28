@@ -26,4 +26,6 @@ phases:
 
 artifacts:
   files:
-    - '**/*' 
+    - '**/*'  # Arquivos de artefato gerados durante o build
+  base-directory: build  # Caso seus artefatos sejam gerados no diretório 'build'
+  discard-paths: yes
