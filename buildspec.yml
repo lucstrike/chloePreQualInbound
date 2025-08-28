@@ -1,5 +1,4 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
@@ -7,25 +6,19 @@ phases:
     commands:
       - echo "Installing dependencies"
       - npm install
-
   pre_build:
     commands:
       - echo "Verifying Node.js version"
       - node -v
       - echo "Verifying npm version"
       - npm -v
-
   build:
     commands:
-      - echo "Running the build"
-      - npm run build
-
+      - echo "Building the Lambda function"
+      - npm run build --if-present
   post_build:
     commands:
-      - echo "Build is complete."
-
+      - echo "Build complete"
 artifacts:
   files:
-    - '**/*'  # Arquivos de artefato gerados durante o build
-  base-directory: build  # Caso seus artefatos sejam gerados no diretório 'build'
-  discard-paths: yes
+    - '**/*'
