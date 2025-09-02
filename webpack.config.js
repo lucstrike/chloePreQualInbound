@@ -1,12 +1,14 @@
+// webpack.config.js
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  target: 'node',
-  entry: './index.js',
+  entry: './src/index.js', // seu arquivo de entrada
+  target: 'node',          // importante para Lambda
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, '.webpack'),
-    filename: 'handler.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',  // arquivo final que será enviado
+    libraryTarget: 'commonjs2',
   },
-  externals: [nodeExternals()],
+  externals: [], // aqui você pode deixar vazio para incluir axios e outras libs
 };
