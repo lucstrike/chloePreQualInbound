@@ -6,7 +6,7 @@ phases:
       nodejs: 18.x
     commands:
       - echo "Installing dependencies"
-      - npm install --production
+      - npm install --omit=dev
 
   pre_build:
     commands:
