@@ -1,3 +1,7 @@
-const { handler } = require("./src/functions/handler"); // ajuste o caminho se necessário
+const { handler: sendMessageHandler } = require("./src/functions/sendmessage.js");
+const { handler: updatePromptHandler } = require("./src/functions/updateprompt.js");
 
-exports.handler = handler;
+module.exports = {
+  sendMessageHandler,
+  updatePromptHandler,
+};
