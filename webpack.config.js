@@ -9,6 +9,5 @@ module.exports = {
     filename: 'index.js',
     libraryTarget: 'commonjs2',
   },
-  // Certifique-se de não usar externals para axios
-  externals: [], 
+  externals: [], // IMPORTANTE: não excluir axios do bundle
 };
