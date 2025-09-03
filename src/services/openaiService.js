@@ -4,7 +4,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,  // Chave da OpenAI via env
 });
 
-async function generateAIResponse(message) {
+async function getGPTResponse(message) {
   const prompt = `Responda de forma amigável e educada para o cliente: "${message}"`;
   
   const response = await openai.chat.completions.create({
@@ -16,4 +16,4 @@ async function generateAIResponse(message) {
   return response.choices[0].message.content.trim();
 }
 
-module.exports = { generateAIResponse };
+module.exports = { getGPTResponse };
