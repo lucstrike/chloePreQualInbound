@@ -4,8 +4,8 @@ module.exports = {
   target: 'node',
   mode: 'production',
   entry: {
-  sendMessage: path.resolve(__dirname, 'src/functions/sendMessage.js'),
-  updatePrompt: path.resolve(__dirname, 'src/functions/updatePrompt.js'),
+  sendMessage: path.resolve(__dirname, 'functions/sendMessage.js'),
+  updatePrompt: path.resolve(__dirname, 'functions/updatePrompt.js'),
 },
   output: {
     path: path.resolve(__dirname, 'dist'),
