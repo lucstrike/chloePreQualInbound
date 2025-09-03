@@ -11,7 +11,6 @@ async function sendMessageToGHL(contactId, message) {
       'Content-Type': 'application/json',
     },
   });
-
   return response.data;
 }
 
@@ -26,7 +25,6 @@ async function moveLeadStage(contactId, stageName) {
       'Content-Type': 'application/json',
     },
   });
-
   return response.data;
 }
 
