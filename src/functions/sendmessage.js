@@ -1,53 +1,28 @@
-const openaiService = require('../services/openaiService');
 const ghlService = require('../services/ghlService');
+const openaiService = require('../services/openaiService');
 
 exports.handler = async (event) => {
-  const response = { status: '', message: '', data: null, error: null };
-
   try {
-    response.status = 'Recebendo payload';
-    const body = JSON.parse(event.body);
-    const { message, contactId, stageName } = body;
+    const { message, contactId, locationId } = JSON.parse(event.body);
 
-    if (!message || !contactId) {
-      response.status = 'Falha de validação';
-      response.error = 'Campos obrigatórios ausentes: message e contactId';
-      return {
-        statusCode: 400,
-        body: JSON.stringify(response),
-      };
+    if (!message || !contactId || !locationId) {
+      return { statusCode: 400, body: 'Campos obrigatórios ausentes' };
     }
 
-    response.status = 'Chamando OpenAI';
+    // Chama o GPT
     const gptResponse = await openaiService.getGPTResponse(message);
-    response.status = 'OpenAI respondeu';
-    response.data = { gptResponse };
 
-    response.status = 'Enviando mensagem para GHL';
-    const ghlResponse = await ghlService.sendMessageToGHL(contactId, gptResponse);
-    response.status = 'Mensagem enviada para GHL';
-    response.data.ghlResponse = ghlResponse;
+    // Envia a mensagem para o GHL
+    const ghlResponse = await ghlService.sendMessageToGHL(contactId, gptResponse, locationId);
 
-    if (stageName) {
-      response.status = 'Atualizando estágio do lead';
-      const stageResponse = await ghlService.moveLeadStage(contactId, stageName);
-      response.status = 'Estágio atualizado';
-      response.data.stageResponse = stageResponse;
-    }
+    // Aqui você pode mover o lead automaticamente
+    const stageResponse = await ghlService.moveLeadStage(contactId, "Conectado - IA John");
 
-    response.status = 'Sucesso';
-    response.message = 'Processamento concluído';
     return {
       statusCode: 200,
-      body: JSON.stringify(response),
+      body: JSON.stringify({ gptResponse, ghlResponse, stageResponse }),
     };
-  } catch (error) {
-    console.error('Erro no handler:', error);
-    response.status = 'Erro';
-    response.error = error.message;
-    return {
-      statusCode: 500,
-      body: JSON.stringify(response),
-    };
+  } catch (err) {
+    return { statusCode: 500, body: err.message };
   }
 };
