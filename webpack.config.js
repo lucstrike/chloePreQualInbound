@@ -1,13 +1,16 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/functions/handler.js', // seu handler
   target: 'node',
   mode: 'production',
+  entry: {
+    sendMessage: path.resolve(__dirname, 'src/functions/sendMessage.js'),
+    updatePrompt: path.resolve(__dirname, 'src/functions/updatePrompt.js'),
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: '[name].js',       // nome do bundle será sendMessage.js e updatePrompt.js
     libraryTarget: 'commonjs2',
   },
-  externals: [], // IMPORTANTE: não excluir axios do bundle
+  externals: [], // deixe axios, openai, etc., se precisar bundlar
 };

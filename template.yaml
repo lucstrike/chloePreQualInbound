@@ -1,26 +1,42 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-Description: Função Lambda para chatbot OpenAI + GHL
-
-Globals:
-  Function:
-    Timeout: 10
-    Runtime: nodejs20.x
-    MemorySize: 128
-
 Resources:
-  ChloePrequalInbound:
+  SendMessageFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/functions/handler.handler
-      CodeUri: .
-      Environment:
-        Variables:
-          OPENAI_API_KEY: YOUR_OPENAI_API_KEY
-          GHL_API_KEY: YOUR_GHL_API_KEY
+      Handler: dist/sendMessage.handler
+      Runtime: nodejs22.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: ssm:GetParameter
+              Resource: "*"
       Events:
-        HttpApi:
+        SendMessageApi:
           Type: HttpApi
           Properties:
-            Path: /webhook
-            Method: post
+            Path: /send-message
+            Method: POST
+
+  UpdatePromptFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/updatePrompt.handler
+      Runtime: nodejs22.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: ssm:PutParameter
+              Resource: "*"
+      Events:
+        UpdatePromptApi:
+          Type: HttpApi
+          Properties:
+            Path: /update-prompt
+            Method: POST
