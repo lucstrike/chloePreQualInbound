@@ -16,12 +16,14 @@ async function sendMessageToGHL(contactId, message, locationId) {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.GHL_SUBACCOUNT_ID}`,
+          Authorization: `Bearer ${process.env.GHL_API_SUBACCOUNT_ID}`,
           'Content-Type': 'application/json',
           Version: '2021-04-15',
         },
       }
     );
+
+    console.log('Mensagem enviada com sucesso:', response.data);
     return response.data;
   } catch (error) {
     console.error('Erro ao enviar mensagem:', error.response?.data || error.message);
@@ -29,30 +31,4 @@ async function sendMessageToGHL(contactId, message, locationId) {
   }
 }
 
-/**
- * Move o lead para outro stage no GHL
- */
-async function moveLeadStage(contactId, stageName) {
-  try {
-    const url = `https://services.leadconnectorhq.com/contacts/${contactId}/stages`;
-    const response = await axios.put(
-      url,
-      {
-        stageName
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.GHL_SUBACCOUNT_ID}`,
-          'Content-Type': 'application/json',
-          Version: '2021-04-15',
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao mover lead de stage:', error.response?.data || error.message);
-    throw error;
-  }
-}
-
-module.exports = { sendMessageToGHL, moveLeadStage };
+module.exports = { sendMessageToGHL };
