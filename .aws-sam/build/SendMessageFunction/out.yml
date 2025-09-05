@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "Fun\xE7\xE3o Lambda para chatbot OpenAI + GHL"
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs20.x
+    MemorySize: 128
+Resources:
+  ChloePrequalInbound:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/functions/handler.handler
+      CodeUri: s3://jonh-backend-nway-s3/3b40845a318194a9a069d3805ba4ae45
+      Environment:
+        Variables:
+          OPENAI_API_KEY: ${OPENAI_API_KEY}
+          GHL_API_KEY: ${GHL_API_KEY}
+      Events:
+        HttpApi:
+          Type: HttpApi
+          Properties:
+            Path: /webhook
+            Method: post
+    Metadata:
+      SamResourceId: ChloePrequalInbound
