@@ -16,9 +16,6 @@ module.exports.handler = async (event) => {
     // Envia a mensagem para o GHL
     const ghlResponse = await ghlService.sendMessageToGHL(contactId, gptResponse, locationId);
 
-    // Aqui você pode mover o lead automaticamente
-    const stageResponse = await ghlService.moveLeadStage(contactId, "Conectado - IA John");
-
     return {
       statusCode: 200,
       body: JSON.stringify({ gptResponse, ghlResponse, stageResponse }),
