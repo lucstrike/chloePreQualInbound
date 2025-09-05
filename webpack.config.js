@@ -5,9 +5,9 @@ module.exports = {
   target: 'node',
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-    libraryTarget: 'commonjs2',
-  },
+  path: path.resolve(__dirname), // raiz do projeto
+  filename: 'index.js',
+  libraryTarget: 'commonjs2',
+},
   externals: [], // IMPORTANTE: não excluir axios do bundle
 };
