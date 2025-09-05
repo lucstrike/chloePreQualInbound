@@ -1,48 +1,24 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "Atualiza c\xF3digo da fun\xE7\xE3o Lambda existente sem trocar role\
+  \ ou nome"
 Resources:
   SendMessageFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: jonh-deploy-ChloePrequalInbound-P6og1N0lFzXV
-      Handler: index.handler
-      Runtime: nodejs22.x
-      MemorySize: 128
+      Handler: src/functions-lambda/sendmessage.handler
+      Runtime: nodejs18.x
+      CodeUri: SendMessageFunction
       Timeout: 10
-      Policies:
-      - AWSLambdaBasicExecutionRole
-      - Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-          Action: ssm:GetParameter
-          Resource: '*'
+      MemorySize: 128
+      Environment:
+        Variables:
+          NODE_ENV: production
       Events:
         SendMessageApi:
-          Type: HttpApi
+          Type: Api
           Properties:
             Path: /send-message
-            Method: POST
-      CodeUri: SendMessageFunction
+            Method: post
     Metadata:
       SamResourceId: SendMessageFunction
-  UpdatePromptFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: dist/updatePrompt.handler
-      Runtime: nodejs22.x
-      MemorySize: 128
-      Timeout: 10
-      Policies:
-      - AWSLambdaBasicExecutionRole
-      - Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-          Action: ssm:PutParameter
-          Resource: '*'
-      Events:
-        UpdatePromptApi:
-          Type: HttpApi
-          Properties:
-            Path: /update-prompt
-            Method: POST
-      CodeUri: UpdatePromptFunction
-    Metadata:
-      SamResourceId: UpdatePromptFunction
