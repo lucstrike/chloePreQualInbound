@@ -1,7 +1,8 @@
 const ghlService = require('../services/ghlService');
 const openaiService = require('../services/openaiService');
 
-exports.handler = async (event) => {
+module.exports.handler = async (event) => {
+
   try {
     const { message, contactId, locationId } = JSON.parse(event.body);
 

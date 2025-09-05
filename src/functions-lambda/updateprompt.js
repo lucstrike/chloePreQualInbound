@@ -4,7 +4,8 @@ const ssm = new AWS.SSM();
 const PROMPT_PARAM_NAME = process.env.PROMPT_PARAM_NAME || '/chatbot/prompt';
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'meuTokenSecreto';
 
-exports.handler = async (event) => {
+module.exports.handler = async (event) => { 
+
   try {
     const body = JSON.parse(event.body);
 
