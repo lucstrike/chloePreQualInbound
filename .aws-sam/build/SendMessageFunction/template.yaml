@@ -9,7 +9,7 @@ Resources:
     Properties:
       # Não definir FunctionName nem Role para não substituir a função existente
       Handler: src/functions-lambda/sendmessage.handler
-      Runtime: nodejs18.x
+      Runtime: nodejs22.x
       CodeUri: .
       Timeout: 10
       MemorySize: 128

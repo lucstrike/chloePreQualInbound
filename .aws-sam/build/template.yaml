@@ -7,7 +7,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: src/functions-lambda/sendmessage.handler
-      Runtime: nodejs18.x
+      Runtime: nodejs22.x
       CodeUri: SendMessageFunction
       Timeout: 10
       MemorySize: 128
