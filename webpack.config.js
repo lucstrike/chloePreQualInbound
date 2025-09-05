@@ -6,7 +6,7 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'sendmessage.js',
+    filename: 'index.js',
     libraryTarget: 'commonjs2',
   },
   externals: [], // IMPORTANTE: não excluir axios do bundle
